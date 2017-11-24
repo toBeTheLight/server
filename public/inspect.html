@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>河湖巡查</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="format-detection" content="email=no" />
+		<meta name="renderer" content="webkit" />
+		<meta name="screen-orientation" content="portrait" />
+		<meta name="full-screen" content="yes" />
+		<meta name="x5-fullscreen" content="true" />
+		<meta name="screen-orientation" content="portrait" />
+		<meta name="x5-orientation" content="portrait" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<link rel="stylesheet" type="text/css" href="css/libs.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+	</head>
+
+	<body class="inspect">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">河湖巡查</h1>
+		</header>
+		<div class="mui-content">
+  		<article class="map-wrapper">
+  			<div class="map" id="baiduMap"></div>
+  			<button type="button" class="btn-begin" id="btn-begin" data-href="inspect-begin.html"><img class="font-flag" src="img/flag.png" alt="" />开始巡河</button>
+  		</article>
+  	  <div class="mui-slider mui-fullscreen">
+  		  <div class="mui-slider-group">
+  			  <div class="mui-scroll">
+    				<ul class="mui-table-view" id="patrolworkList">
+    					<!-- begin:未开始 finish:已完成 pause:暂停中-->
+    					<li class="mui-table-view-cell mui-media" v-cloak :class="{begin:item.state==0, pause:item.state==1, finish:item.state==2}" v-for="(item, index) in list">
+    						<div class="img-wrapper item">
+    							<!--<img class="list-img" src="http://placehold.it/70x70" />-->
+    							<img class="list-img" :src="item.img" />
+    						</div>
+    						<div class="info clearfix">
+    							<div class="title-wrapper hyy-flex">
+    								<p class="title hyy-title">{{item['channel segment_nm']}}</p>
+    							</div>
+    							<p class="time hyy-time">
+    								<span v-text="item.time"></span>
+    								<i class="state"></i>
+    							</p>
+    						</div>
+    						<button type="button" class="mui-btn" v-text="item.state==0?'开始巡河':(item.state==1?'继续巡河':'巡河记录')"></button>
+    					</li>
+    				</ul>
+  			  </div>
+  		  </div>
+  	  </div>
+		</div>
+	</body>
+	<script src="https://api.map.baidu.com/api?v=2.0&ak=iD2gwtGfo1p98lPenidUyx8h" type="text/javascript" charset="utf-8"></script>
+	<script src="js/libs.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/public.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		mui.ready( function () {
+		  document.getElementById( "baiduMap" ).style.height = '175px';
+		  document.querySelector( '.mui-slider-group' ).style.minHeight = document.documentElement.clientHeight - 175 - 45 + 'px';
+
+			mui( "article.map-wrapper" ).on( 'tap', '#btn-begin', function () {
+				app.view.open( this.getAttribute( 'data-href' ) );
+			} );
+			
+			app.baiduMap.translate( "baiduMap" );
+			var vmList = new Vue({
+			  el: '#patrolworkList',
+			  data: {
+			    list: [],
+			    pageIndex: 1,
+			    pageSize: 10,
+			    apiPath: 'http://192.168.0.236:3000/'
+			  },
+			  methods: {
+			    askList: function (cb) {
+			      var self = this
+			      mui.post( this.apiPath + 'patrolwork_list', {
+              u_id: '123456',
+              river_id: '123456789',
+              pageIndex: this.pageIndex,
+              pageSize: this.pageSize
+            }, 
+            function (res) {
+              if (res.code === 0) {
+                self.list = self.list.concat(res.data)
+                self.pageIndex += 1
+              } else {
+                mui.toast('网络错误')
+              }
+              cb()
+            })
+			    },
+			    refresh: function (cb) {
+			      var self = this
+			      mui.post(this.apiPath + 'patrolwork_list', {
+			        uid: '123456',
+              river_id: '123456789',
+              pageIndex: this.pageIndex,
+              pageSize: this.pageSize
+			      },
+			      function (res) {
+			        if (res.code === 0) {
+                self.list = res.data
+                self.pageIndex += 1
+            } else {
+              mui.toast('网络错误')
+            }
+              cb()
+			      })
+			    }
+			  },
+			  created: function () {
+//			    this.askList()
+			  },
+			  mounted: function () {
+			    mui( '.mui-slider-group ' ).scroll( {
+            bounce: false,
+            indicators: true,
+            deceleration: ( mui.os.ios ? 0.003 : 0.0009 )
+          } );
+			  }
+			})
+	    mui( '.mui-slider-group .mui-scroll' ).pullToRefresh( {
+        down: {
+          callback: function () {
+            console.log('down')
+            var self = this
+            vmList.refresh(function () {
+              self.endPullDownToRefresh()
+            })
+          }
+        },
+        up: {
+          auto: true,
+          callback: function () {
+            console.log('up')
+            var self = this
+            vmList.askList(function () {
+              self.endPullUpToRefresh()
+            })
+          }
+        }
+      } );
+		} );
+	</script>
+</html>

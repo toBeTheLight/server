@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>河长智能巡查系统</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="format-detection" content="email=no" />
+		<meta name="renderer" content="webkit" />
+		<meta name="screen-orientation" content="portrait" />
+		<meta name="full-screen" content="yes" />
+		<meta name="x5-fullscreen" content="true" />
+		<meta name="screen-orientation" content="portrait" />
+		<meta name="x5-orientation" content="portrait" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<link rel="stylesheet" type="text/css" href="css/libs.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<style type="text/css">
+			.home ul li{
+				position: relative;
+			}
+			.home ul li .mui-badge{
+				position: absolute;
+				top: 20px;
+				right: 10px;
+			}
+		</style>
+	</head>
+
+	<body class="home">
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-gear mui-pull-left"></a>
+			<h1 class="mui-title">河长智能巡查系统</h1>
+			<!--<a class="mui-icon mui-icon-chatbubble mui-pull-right"><span class="point"></span></a>-->
+		</header>
+		<div class="mui-content">
+			<!--用户个人区-->
+			<div class="user_info">
+				<!--个人信息栏-->
+				<div class="info_area">
+					<!--头像-->
+					<div class="user_photo">
+						<img src="img/default_photo.png" />
+						<!--<span class="point">LV2</span>-->
+					</div>
+					<div class="user_identification">
+						<div class="fs20">靠山镇河长</div>
+						<div class="fs14"><span>ID:</span>152987436</div>
+					</div>
+				</div>
+			</div>
+			<!--菜单card-->
+			<main>
+				<ul id="list" class="mui-table-view mui-grid-view mui-grid-9">
+					<li v-for="item in listData" :data-href="item.href" @click="click" class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+						<a>
+							<img :src="item.src" />
+							<div class="mui-media-body" v-text="item.content"></div>
+						</a>
+						<span class="mui-badge mui-badge-red" v-if="item.num !=''" v-text="item.num"></span>
+					</li>
+				</ul>
+			</main>
+		</div>
+	</body>
+	<script src="js/libs.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/public.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		document.querySelector( 'main' ).style.height = ( document.documentElement.clientHeight - 235 + 'px' );
+		var vue = new Vue( {
+			el: '#list',
+			data: {
+				listData: [ {
+					src: 'img/icon1.png',
+					content: '河湖巡查',
+					href: 'inspect.html',
+					num:''
+				}, {
+					src: 'img/icon2.png',
+					content: '巡河查询',
+					href: '#',
+					num:''
+				}, {
+					src: 'img/icon3.png',
+					content: '监测信息',
+					href: 'monitor.html',
+					num:''
+				}, {
+					src: 'img/icon4.png',
+					content: '我的河道',
+					href: 'river.html',
+					num:''
+				}, {
+					src: 'img/icon5.png',
+					content: '河长督导',
+					href: '#',
+					num:''
+				}, {
+					src: 'img/icon6.png',
+					content: '通知公告',
+					href: 'notice.html',
+					num:'20'
+				}, {
+					src: 'img/icon7.png',
+					content: '投诉处理',
+					href: 'complain.html',
+					num:''
+				}, {
+					src: 'img/icon8.png',
+					content: '考核排名',
+					href: 'ranking.html',
+					num:''
+				}, {
+					src: 'img/icon9.png',
+					content: '河长圈',
+					href: '#',
+					num:''
+				}, ]
+			},
+			methods: {
+				click: function ( event ) {
+					app.view.open( event.currentTarget.getAttribute( 'data-href' ) );
+				}
+			}
+		} );
+
+		//quitApp();
+	</script>
+
+</html>

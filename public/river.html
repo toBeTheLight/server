@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>我的河道</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="format-detection" content="email=no" />
+		<meta name="renderer" content="webkit" />
+		<meta name="screen-orientation" content="portrait" />
+		<meta name="full-screen" content="yes" />
+		<meta name="x5-fullscreen" content="true" />
+		<meta name="screen-orientation" content="portrait" />
+		<meta name="x5-orientation" content="portrait" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<link rel="stylesheet" type="text/css" href="css/libs.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+	</head>
+	<style type="text/css">
+		.river .hz-tree {
+			padding: 5px 6px;
+			background-color: #fff;
+			margin-top: 10px;
+		}
+		.river .hz-tree {
+			padding: 5px 31px;
+		}
+		.river .hz-tree li:last-child:after {
+			display: none;
+		}
+		.river .hz-tree p {
+			margin-bottom: 0;
+		}
+		.river .hz-tree .mui-table-view-my {
+			padding: 0;
+		}
+		.river .hz-tree .td-info {
+			line-height: 25px;
+			padding: 5px 0;
+			font-size: 17px;
+			color: #333333;
+		}
+	</style>
+
+	<body class="river">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的河道</h1>
+		</header>
+		<div class="mui-content">
+			<div id="baseInfo">
+				<article>
+					<div class="map" id="baiduMap">
+
+					</div>
+				</article>
+				<article class="river-des">
+					<table>
+						<tr class="">
+							<td class="nth">
+								<p class="td-title">序号</p>
+								<p style="font-size:20px;">02</p>
+							</td>
+							<td class="name">
+								<p class="td-title">河流名称</p>
+								<p class="td-info">伊通伊通伊通伊通伊通伊通河</p>
+							</td>
+						</tr>
+						<tr class="">
+							<!--<td class="area">
+								<p class="td-title">流域面积(km<sup>2</sup>)</p>
+								<p class="td-info">19881</p>
+							</td>-->
+							<td class="area">
+								<p class="td-title">河道长度(km)</p>
+								<p class="td-info">1920</p>
+							</td>
+							<td class="from">
+								<p class="td-title">所在行政区划</p>
+								<p class="td-info">农安县靠山镇</p>
+							</td>
+						</tr>
+						<!--<tr class="">
+							<td class="to">
+								<p class="td-title">汇入河流</p>
+								<p class="td-info">饮马河</p>
+							</td>
+							<td class="from">
+								<p class="td-title">所在行政区划</p>
+								<p class="td-info">农安县靠山镇</p>
+							</td>
+						</tr>-->
+					</table>
+					<ul class="mui-table-view">
+						<li class="mui-table-view-my cross">
+							<p class="td-title">流经县（市、区）</p>
+							<p class="td-info">长春市、双阳区、九台市、德惠市、农安县、双阳区、九台市</p>
+						</li>
+					</ul>
+				</article>
+				<article class="hz-tree">
+					<p class="td-title">河长树</p>
+					<ul class="mui-table-view">
+						<li class="hyy-bottom-border">
+							<p class="td-info">
+								<span>市级河长：</span>
+								<span>刘方</span>
+								<span>靠山镇</span>
+								<a href="tel:15855555555"><i class="fa fa-phone"></i>暂定</a>
+							</p>
+						</li>
+						<li class="hyy-bottom-border">
+							<p class="td-info">
+								<span>市级河长：</span>
+								<span>刘方</span>
+								<span>靠山镇</span>
+								<a href="tel:15855555555"><i class="fa fa-phone"></i>这样</a>
+							</p>
+						</li>
+						<li class="hyy-bottom-border">
+							<p class="td-info">
+								<span>市级河长：</span>
+								<span>刘方</span>
+								<span>靠山镇</span>
+								<a href="tel:15855555555"><i class="fa fa-phone"></i>等数据</a>
+							</p>
+						</li>
+						<li class="hyy-bottom-border">
+							<p class="td-info">
+								<span>市级河长：</span>
+								<span>刘方</span>
+								<span>靠山镇</span>
+								<a href="tel:15855555556"><i class="fa fa-phone"></i>再调</a>
+							</p>
+						</li>
+					</ul>
+				</article>
+			</div>
+			<div id="statistic" class="hyy-bottom-border hyy-top-border">
+				<h2 class="hyy-h2 title hyy-bottom-border">问题统计</h2>
+				<div class="chart-wrapper">
+					<div class="chart-header">
+						<h2 class="hyy-h2 chart-title">伊通河(靠山镇段)河道</h2>
+						<span class="chart-time">2017/04/25</span>
+					</div>
+					<div id="chart">
+
+					</div>
+				</div>
+			</div>
+			<div id="policy" class="hyy-bottom-border hyy-top-border">
+				<h2 class="article-title">伊通河（靠山镇段）河道</h2>
+				<p class="article-info">
+					<span class="article-time">2016/05/20 10:26</span>
+					<!--<span class="article-read">阅读 158</span>-->
+				</p>
+				<div class="article-text">
+					未来，永安明沟的多个地段，都会搭建一种在水面之上向外延伸、架空的人行栈道。因此，在永安明沟的沿线护坡上，在不影响防洪效果的前提下，要打下近百根桩体，以便支撑栈道平台。图为南湖汇水区黑臭水体治理永安明沟段建设现场。 　　 伊通河综合治理是“十三五”期间长春市重大城建项目，省、市领导高度重视，长春人民格外关注。秉承“治理一条河流，改变一座城市”的理念，长春以“水”为线，流域统筹，目标管理，一河一策，阶段递进，分区实施，矢志把伊通河建设成为“绿色宜居生态轴，城市安全生命线，美丽长春景观带，产业升级动力源”。 　　坚持“一把手”领衔挂帅。长春市委、市政府将伊通河综合治理作为头号工作来抓，一把手挂帅成立伊通河综合治理领导小组。 　　坚持“一线法”狠抓落实。长春市主要领导多次带队到治水一线调研、检查、协调、部署工作。
+				</div>
+			</div>
+		</div>
+		<nav>
+			<ul class="hyy-flex">
+				<li class="active">基本信息</li>
+				<li>问题统计</li>
+				<li>一河一策</li>
+			</ul>
+		</nav>
+	</body>
+	<script src="https://api.map.baidu.com/api?v=2.0&ak=iD2gwtGfo1p98lPenidUyx8h" type="text/javascript" charset="utf-8"></script>
+	<script src="js/libs.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/public.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		mui.ready( function () {
+
+			//toggle
+			var pageBaseinfo = document.querySelector( '#baseInfo' )
+			var pageStatistic = document.querySelector( '#statistic' )
+			var pagePolicy = document.querySelector( '#policy' )
+			var pagesArr = [ pageBaseinfo, pageStatistic, pagePolicy ]
+			var elNavItems = document.querySelectorAll( 'nav li' )
+
+			function togglePage( nth ) {
+				pageBaseinfo.style.display = 'none'
+				pageStatistic.style.display = 'none'
+				pagePolicy.style.display = 'none'
+				pagesArr[ nth ].style.display = 'block'
+			}
+			document.querySelector( 'nav' ).addEventListener( 'click', function ( event ) {
+				var index = Array.prototype.indexOf.call( elNavItems, event.target )
+				for ( var i = 0; i < elNavItems.length; i++ ) {
+					elNavItems[ i ].classList.remove( 'active' )
+				}
+				elNavItems[ index ].classList.add( 'active' )
+				togglePage( index )
+				myChart.resize()
+			}, false )
+			var elChart = document.getElementById( 'chart' )
+			elChart.style.width = window.innerWidth - 20 + 'px'
+			var myChart = echarts.init( elChart );
+			myChart.setOption( {
+				legend: {
+					orient: 'horizontal',
+					x: 'left',
+					y: 'bottom',
+					data: [ '污泥淤积', '排水口未标示', '水体异样', '杂物漂浮', '污水直排', '其他' ],
+					itemGap: 16,
+					itemWidth: 28,
+					itemHeight: 16,
+					textStyle: {
+						fontSize: 12
+					}
+				},
+				color: [ '#436afb', '#5acbff', '#5aff9c', '#1eb5f6', '#fb5043', '#5aa4ff' ],
+				series: [ {
+					center: [ '50%', '33%' ],
+					name: '问题统计',
+					type: 'pie',
+					radius: [ '16%', '40%' ],
+					label: {
+						normal: {
+							formatter: '{d}%\n{b}',
+							textStyle: {
+								fontWeight: 'normal',
+								fontSize: 12,
+								color: '#333'
+							},
+						}
+					},
+					data: [ {
+							value: 30,
+							name: '水体异样',
+						},
+						{
+							value: 30,
+							name: '杂物漂浮'
+						},
+						{
+							value: 12,
+							name: '污水直排'
+						},
+						{
+							value: 25,
+							name: '其他'
+						},
+						{
+							value: 46,
+							name: '排水口未标示'
+						},
+						{
+							value: 30,
+							name: '污泥淤积'
+						}
+					]
+				} ]
+			} )
+
+			var map = new BMap.Map( "baiduMap" );
+			map.centerAndZoom( new BMap.Point( 116.404, 39.915 ), 18 );
+			map.setCurrentCity( "北京" );
+
+		} );
+	</script>
+
+</html>

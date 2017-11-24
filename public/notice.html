@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>通知公告list</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="format-detection" content="email=no" />
+		<meta name="renderer" content="webkit" />
+		<meta name="screen-orientation" content="portrait" />
+		<meta name="full-screen" content="yes" />
+		<meta name="x5-fullscreen" content="true" />
+		<meta name="screen-orientation" content="portrait" />
+		<meta name="x5-orientation" content="portrait" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<link rel="stylesheet" type="text/css" href="css/libs.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<style type="text/css">
+			.notice_list ul li img {
+				max-width: 50px;
+				width: 50px;
+				height: 50px;
+			}
+		</style>
+	</head>
+
+	<body class="notice_list">
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">河长更新</h1>
+		</header>
+		<div class="mui-content">
+			<!--搜索框-->
+			<form action="" method="">
+				<div class="mui-input-row mui-search">
+					<input type="search" class="mui-input-clear" placeholder="搜索">
+				</div>
+			</form>
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div class="mui-slider-group">
+					<!--列表-->
+					<div class="mui-scroll">
+						<ul id="list" class="mui-table-view" v-cloak>
+							<li v-for="item in listData" :data-href="item.href" class="mui-table-view-cell mui-media">
+								<a>
+									<img class="mui-media-object mui-pull-left" src="img/icon10.png">
+									<div class="mui-media-body">
+										<div>
+											{{item.title}}
+											<span v-text="item.time"></span>
+										</div>
+										<p class='mui-ellipsis' v-text="item.content"></p>
+									</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="js/libs.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/public.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		document.querySelector( '.notice_list .mui-slider-group' ).style.minHeight = document.documentElement.clientHeight - document.querySelector( 'form' ).clientHeight - 45 + 'px';
+		var vue = new Vue( {
+			el: '#list',
+			data: {
+				listData: []
+			},
+			methods: {
+				click: function ( event ) {
+					alert( event.currentTarget )
+					app.view.open( event.currentTarget.getAttribute( 'data-href' ) );
+				},
+				ajax: function ( o, cb ) {
+					setTimeout( () => {
+						this.bind( o, cb );
+					}, 800 );
+				},
+				bind: function ( o, cb, data ) {
+					if ( o == 'up' ) {
+						for ( var i = 0; i < 10; i++ ) {
+							vue.listData.push( {
+								title: '河道管理',
+								time: '2017/04/25',
+								content: 'xx河道管理处最新上传xx河治河策略',
+								href: 'notice_info.html'
+							} )
+						}
+					} else {
+						var data = []
+						for ( var i = 0; i < 10; i++ ) {
+							data.push( {
+								title: '河道管理',
+								time: '2017/04/25',
+								content: 'aa河道管理处最新上传xx河治河策略',
+								href: 'notice_info.html'
+							} )
+						}
+						vue.listData = data;
+					}
+					if ( typeof ( cb ) == "function" ) {
+						cb();
+					}
+				},
+			},
+			mounted() {
+				mui( '.mui-slider-group' ).scroll( {
+					bounce: false,
+					indicators: true,
+					deceleration: ( mui.os.ios ? 0.003 : 0.0009 )
+				} );
+			}
+		} );
+
+		mui( '#list' ).on( 'tap', '.mui-media', function () {
+			app.view.open( this.getAttribute( 'data-href' ) );
+		} )
+
+		mui( '.mui-slider-group .mui-scroll' ).pullToRefresh( {
+			down: {
+				callback: function () {
+					console.log( 'down' + new Date().getTime() )
+					var self = this;
+					vue.ajax( 'down', function () {
+						self.endPullDownToRefresh();
+					} )
+				}
+			},
+			up: {
+				auto: true,
+				callback: function () {
+					console.log( 'up' + new Date().getTime() )
+					var self = this;
+					vue.ajax( 'up', function () {
+						self.endPullUpToRefresh();
+					} )
+				}
+			}
+		} );
+
+		//app.ajax.post( 'http://192.168.0.147:8080/rms-main-web/app/notic/notice_list', {
+		//	"uid": 123456,
+		//	"key": "",
+		//	"pageindex": 1,
+		//	"pagesize": 10
+		//},function (s,result) {
+		//	console.log( s );
+		//	console.log( result );
+		//});
+	</script>
+
+</html>

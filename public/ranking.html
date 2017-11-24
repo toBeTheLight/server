@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>考核排名</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="format-detection" content="email=no" />
+		<meta name="renderer" content="webkit" />
+		<meta name="screen-orientation" content="portrait" />
+		<meta name="full-screen" content="yes" />
+		<meta name="x5-fullscreen" content="true" />
+		<meta name="screen-orientation" content="portrait" />
+		<meta name="x5-orientation" content="portrait" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<link rel="stylesheet" type="text/css" href="css/libs.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<style type="text/css">
+			.ranking .canvas_area {
+				width: 100%;
+				height: 180px;
+				background-image: url(img/home_bg.png);
+				background-size: 100% 100%;
+				position: relative;
+			}
+			
+			.ranking .canvas_area .name {
+				width: 100%;
+				color: white;
+				font-size: 15px;
+				text-align: center;
+				padding: 10px 0;
+			}
+			
+			.ranking .canvas_area .details {
+				width: 50%;
+				color: white;
+				position: absolute;
+				bottom: 10px;
+				left: 23%;
+				overflow: hidden;
+			}
+			
+			.ranking .canvas_area .details span:nth-child(1) {
+				float: left;
+			}
+			
+			.ranking .canvas_area .details span:nth-child(2) {
+				float: right;
+			}
+			
+			.ranking .rank_list {
+				margin-top: 15px;
+				background-color: white;
+			}
+			
+			.ranking .rank_list>div {
+				height: 40px;
+				line-height: 40px;
+				padding-left: 15px;
+			}
+			
+			.ranking .rank_list .icon {
+				float: left;
+				line-height: 50px;
+				width: 30px;
+				color: #ccc;
+				font-weight: bold;
+				font-size: 25px;
+				text-align: center;
+			}
+			
+			.ranking .rank_list .icon img {
+				width: 30px;
+				height: 30px;
+				float: left;
+				margin-top: 10px;
+			}
+			
+			.ranking .rank_list .title {
+				font-size: 16px;
+				line-height: 25px;
+			}
+			
+			.ranking .rank_list .content {
+				line-height: 25px;
+			}
+			
+			.ranking .rank_list .mui-pull-left {
+				max-width: 50px;
+				width: 50px;
+				height: 50px;
+			}
+			
+			.ranking .rank_list a {
+				padding: 15px;
+			}
+			
+			.ranking .rank_list .content {
+				overflow: hidden;
+			}
+			
+			.ranking .rank_list .content .cos1 {
+				color: #ccc;
+				font-size: 14px;
+			}
+			
+			.ranking .rank_list .content .cos2 {
+				color: #ccc;
+				font-size: 14px;
+				margin-left: 10px;
+			}
+			
+			.ranking .rank_list .content .cos2 span {
+				color: #61b8ff;
+			}
+			
+			.ranking .rank_list .content .cos3 {
+				color: #ff5656;
+				font-size: 30px;
+				float: right;
+			}
+			
+			.ranking .mui-table-view {
+				overflow: auto;
+			}
+		</style>
+	</head>
+
+	<body class="ranking">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">考核排名</h1>
+		</header>
+		<div id="content" class="mui-content">
+			<div class="canvas_area">
+				<div class="name">2016年伊通河(靠山镇段)</div>
+				<canvas id="canvas" width="" height="120"></canvas>
+				<div class="details">
+					<span>第一名</span>
+					<span>优秀</span>
+				</div>
+			</div>
+			<div class="rank_list">
+				<div>排行榜</div>
+				<ul id="list" class="mui-table-view">
+					<li v-for="item in listData" class="mui-table-view-cell mui-media">
+						<a href="javascript:;">
+							<div class="icon" v-html="item.rank"></div>
+							<img class="mui-media-object mui-pull-left" src="img/test1.png">
+							<div class="mui-media-body">
+								<div class="title" v-text="item.title"></div>
+								<div class="content">
+									<span class="cos1">河长:<span v-text="item.cos1"></span></span>
+									<span class="cos2">考核结果:<span v-text="item.cos2"></span></span>
+									<span class="cos3" v-text="item.cos3"></span>
+								</div>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+	<script src="js/libs.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/public.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		document.getElementById('list').style.height = document.documentElement.clientHeight - 279 + 'px';
+		var vm = new Vue({
+			el: '#content',
+			data: {
+				listData: []
+			},
+			methods: {
+				bind: function() {
+					for(var i = 0; i < 20; i++) {
+						let rank = i + 1;
+						switch(i) {
+							case 0:
+								rank = '<img src="img/no1.png"/>'
+								break;
+							case 1:
+								rank = '<img src="img/no2.png"/>'
+								break;
+							case 2:
+								rank = '<img src="img/no3.png"/>'
+								break;
+							default:
+								break;
+						}
+						this.listData.push({
+							rank: rank,
+							title: '伊通河(靠山镇段)',
+							cos1: '张三',
+							cos2: '优秀',
+							cos3: '96'
+						})
+					}
+				}
+			},
+			mounted() {
+				this.bind();
+			}
+		})
+		window.onload = function() {
+			document.getElementById('canvas').width = document.documentElement.clientWidth;
+			var canvas = document.getElementById('canvas'),
+				context = canvas.getContext('2d'),
+				centerX = canvas.width / 2,
+				centerY = canvas.height / 2,
+				rad = Math.PI * 2 / 100,
+				speed = 0.1;
+
+			function blueCircle(n) {
+				context.save();
+				context.strokeStyle = "#8af0fc";
+				context.lineWidth = 5;
+				context.beginPath();
+				context.arc(centerX, centerY, 55, Math.PI / 2, Math.PI / 2 + n * rad, false);
+				context.stroke();
+				context.closePath();
+				context.restore();
+			}
+			//绘制白色外圈
+			function whiteCircle() {
+				context.save();
+				context.beginPath();
+				context.lineWidth = 2;
+				context.strokeStyle = "#FFFFFF";
+				context.arc(centerX, centerY, 57, 0, Math.PI * 2, false);
+				context.stroke();
+				context.closePath();
+				context.restore();
+			}
+			//百分比文字绘制
+			function text(n) {
+				context.save();
+				context.strokeStyle = "yellow";
+				context.font = "40px Helvetica";
+				context.strokeText(n.toFixed(0), centerX - 20, centerY + 25);
+				context.stroke();
+				context.restore();
+			}
+			//综合评分字样
+			function text2(n) {
+				context.save();
+				context.strokeStyle = "#fff";
+				context.font = "18px Arial";
+				context.strokeText(n, centerX - 35, centerY - 15);
+				context.stroke();
+				context.restore();
+			}
+			//动画循环
+			(function drawFrame() {
+				context.clearRect(0, 0, canvas.width, canvas.height);
+				whiteCircle();
+				text(speed);
+				text2('综合评分')
+				blueCircle(speed);
+				if(speed > 97) {
+					speed = 0;
+				} else {
+					window.requestAnimationFrame(drawFrame);
+				}
+				speed += 1;
+			}());
+		}
+	</script>
+
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>详情页</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="format-detection" content="email=no" />
+		<meta name="renderer" content="webkit" />
+		<meta name="screen-orientation" content="portrait" />
+		<meta name="full-screen" content="yes" />
+		<meta name="x5-fullscreen" content="true" />
+		<meta name="screen-orientation" content="portrait" />
+		<meta name="x5-orientation" content="portrait" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<link rel="stylesheet" type="text/css" href="css/libs.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<style type="text/css">
+			.complain_info .mui-preview-image.mui-fullscreen {
+				position: fixed;
+				z-index: 20;
+				background-color: #000;
+			}
+			.complain_info .mui-preview-header,
+			.complain_info .mui-preview-footer {
+				position: absolute;
+				width: 100%;
+				left: 0;
+				z-index: 10;
+			}
+			.complain_info .mui-preview-header {
+				height: 44px;
+				top: 0;
+			}
+			.complain_info .mui-preview-footer {
+				height: 50px;
+				bottom: 0px;
+			}
+			.complain_info .mui-preview-header .mui-preview-indicator {
+				display: block;
+				line-height: 25px;
+				color: #fff;
+				text-align: center;
+				margin: 15px auto 4;
+				width: 70px;
+				background-color: rgba(0, 0, 0, 0.4);
+				border-radius: 12px;
+				font-size: 16px;
+			}
+			.complain_info .mui-preview-image {
+				display: none;
+				-webkit-animation-duration: 0.5s;
+				animation-duration: 0.5s;
+				-webkit-animation-fill-mode: both;
+				animation-fill-mode: both;
+			}
+			.complain_info .mui-preview-image.mui-preview-in {
+				-webkit-animation-name: fadeIn;
+				animation-name: fadeIn;
+			}
+			.complain_info .mui-preview-image.mui-preview-out {
+				background: none;
+				-webkit-animation-name: fadeOut;
+				animation-name: fadeOut;
+			}
+			.complain_info .mui-preview-image.mui-preview-out .mui-preview-header,
+			.complain_info .mui-preview-image.mui-preview-out .mui-preview-footer {
+				display: none;
+			}
+			.complain_info .mui-zoom-scroller {
+				position: absolute;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+				-webkit-box-pack: center;
+				-webkit-justify-content: center;
+				justify-content: center;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				-webkit-backface-visibility: hidden;
+			}
+			.complain_info .mui-zoom {
+				-webkit-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+			}
+			.complain_info .mui-slider .mui-slider-group .mui-slider-item img {
+				width: auto;
+				height: auto;
+				max-width: 100%;
+				max-height: 100%;
+			}
+			.complain_info .mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+				width: 100%;
+			}
+			.complain_info .mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+				display: inline-table;
+			}
+			.complain_info .mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+				display: table-cell;
+				vertical-align: middle;
+			}
+			.complain_info .mui-preview-loading {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				display: none;
+			}
+			.complain_info .mui-preview-loading.mui-active {
+				display: block;
+			}
+			.complain_info .mui-preview-loading .mui-spinner-white {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -25px;
+				margin-top: -25px;
+				height: 50px;
+				width: 50px;
+			}
+			.complain_info .mui-preview-image img.mui-transitioning {
+				-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+				transition: transform 0.5s ease, opacity 0.5s ease;
+			}
+			@-webkit-keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			@keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			@-webkit-keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			@keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			.complain_info p img {
+				max-width: 100%;
+				height: auto;
+				float: left;
+			}
+			.complain_info p{
+				overflow: hidden;
+				text-indent: 28px;
+				color: black;
+			}
+			.complain_info .mui-content-padded {
+			    padding: 20px 20px;
+			    background-color: white;
+			    overflow: hidden;
+			}
+			.complain_info .header .time{
+				font-size: 14px;
+				color: #ccc;
+				margin: 15px 0;
+			}
+			.complain_info h3{
+				font-size: 22px;
+				line-height: 1.2;
+			}
+			.complain_info .mui-icon-extra-share.mui-pull-right.fs{
+				font-size: 22px;
+			}
+			.complain_info .content{
+				background-color: #eee;
+				color: #999999;
+				padding: 20px 15px;
+				border-radius: 5px;
+			}
+			.complain_info .footer button{
+				min-width: 130px;
+    			border-radius: 20px;
+			}
+			.complain_info .mui-btn:enabled:active,
+			.complain_info button:enabled:active{
+				color: #fff;
+   				background-color: #009bf5;
+			}
+			.complain_info .footer{
+				margin-top: 20px;
+			}
+			.complain_info .footer button:nth-child(1){
+				float: left;
+			}
+			.complain_info .footer button:nth-child(2){
+				float: right;
+			}
+		</style>
+	</head>
+	<body class="complain_info">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">投诉处理</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-content-padded">
+				<div class="header">
+					<h3>李开复多少级了风刀霜剑昆仑决付款啦</h3>
+					<div class="time">2017/08/08 <span>08:00</span></div>
+				</div>
+				<p>
+					<img src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=4094884283,1235958069&fm=200&gp=0.jpg" data-preview-src="" data-preview-group="1" />
+				</p>
+				<p class="content">喇碾路位于怀柔北部山区喇叭沟门乡，是当地的一条重要旅游公路和民生公路，连接着原始次生林、满族民俗博物馆、白桦谷风景区等诸多旅游景点，沿线分布着孙栅子、中榆树店、下河北等多个市、区级民俗村，近年来已逐步成为市民一路向北的旅游胜地。2014年8月，喇碾路成功入选北京十大最美乡村路。</p>
+				<div class="footer">
+					<button type="button" class="mui-btn reply">回复</button>
+					<button type="button" class="mui-btn progress">进度查询</button> 
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="js/libs.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/public.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		mui.previewImage();
+		mui('.footer').on('tap', '.reply', function() {
+			app.view.open('complain_reply.html');
+		})
+		mui('.footer').on('tap', '.progress', function() {
+			app.view.open('complain_progress.html');
+		})
+	</script>
+</html>
